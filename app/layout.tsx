@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { WagmiContext } from "@/context/wagmiContext";
+import { Toaster } from "@/components/ui/sonner";
+
+
 
 
 const geistMono = Geist_Mono({
@@ -13,18 +17,21 @@ export const metadata: Metadata = {
   description: "P2P Financing Platform for the 3 Wheeler Bike Club",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistMono.className}`}
       >
-        {children}
+        <WagmiContext>
+          {children}
+          <Toaster expand={true} richColors />
+        </WagmiContext>
       </body>
     </html>
   );
