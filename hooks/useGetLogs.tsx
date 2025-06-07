@@ -19,7 +19,7 @@ export const useGetLogs = (address: `0x${string}` | undefined) => {
                 args: {
                     buyer: address,
                 },
-                fromBlock: BigInt(35233309), 
+                fromBlock: BigInt(63395596), 
                 toBlock: 'latest'
             })   
             return eventLogs
@@ -33,7 +33,7 @@ export const useGetLogs = (address: `0x${string}` | undefined) => {
                 args: {
                     buyer: address,
                 },
-                fromBlock: BigInt(35233309), 
+                fromBlock: BigInt(63395596), 
                 toBlock: 'latest'
             })   
             return eventLogs
@@ -47,7 +47,7 @@ export const useGetLogs = (address: `0x${string}` | undefined) => {
                 args: {
                     buyer: address,
                 },
-                fromBlock: BigInt(35233309), 
+                fromBlock: BigInt(63395596), 
                 toBlock: 'latest'
             })
             return eventLogs
