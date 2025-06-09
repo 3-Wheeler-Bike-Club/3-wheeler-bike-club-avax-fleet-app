@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { useBlockNumber, useReadContract, useAccount, useWriteContract } from "wagmi";
+import { useBlockNumber, useReadContract, useAccount, useWriteContract, useSwitchChain } from "wagmi";
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -33,7 +33,8 @@ import { fleetOrderTokenAbi } from "@/utils/abis/fleetOrderToken";
 
 export function Wrapper() {
 
-    const { address } = useAccount()
+    const { address, chainId } = useAccount()
+    const { switchChainAsync } = useSwitchChain()
     
     const [amount, setAmount] = useState(1)
     const [fractions, setFractions] = useState(1)
@@ -110,6 +111,9 @@ export function Wrapper() {
     async function getTestTokens() {
         try {
             setLoadingUSD(true)
+            if (chainId !== avalanche.id) {
+                await switchChainAsync({ chainId: avalanche.id })
+            }
             const hash = await sendTransactionAsync({
                 to: fleetOrderToken,
                 data: encodeFunctionData({
@@ -144,6 +148,9 @@ export function Wrapper() {
     async function approveUSD() {
         try {
             setLoadingUSD(true)
+            if (chainId !== avalanche.id) {
+                await switchChainAsync({ chainId: avalanche.id })
+            }
             await writeContractAsync({
                 abi: erc20Abi,
                 address: fleetOrderToken/*USDT*/,
@@ -176,7 +183,9 @@ export function Wrapper() {
     async function orderFleetWithCeloUSD() { 
         try {
             setLoadingUSD(true)
-
+            if (chainId !== avalanche.id) {
+                await switchChainAsync({ chainId: avalanche.id })
+            }
             const hash = await sendTransactionAsync({
                 to: fleetOrderBook,
                 data: encodeFunctionData({
@@ -213,7 +222,9 @@ export function Wrapper() {
     async function orderFleetFractionsWithCeloUSD( shares: number ) {    
         try {
             setLoadingUSD(true)
-
+            if (chainId !== avalanche.id) {
+                await switchChainAsync({ chainId: avalanche.id })
+            }
             const hash = await sendTransactionAsync({
                 to: fleetOrderBook,
                 data: encodeFunctionData({
